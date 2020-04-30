@@ -3,11 +3,12 @@ import database_common
 
 
 @database_common.connection_handler
-def get_users(cursor: RealDictCursor) -> list:
+def get_users(cursor: RealDictCursor, user_name) -> list:
     query = """
         SELECT *
-        FROM users"""
-    cursor.execute(query)
+        FROM users
+        WHERE user_name = %(user_name)s;"""
+    cursor.execute(query, {"user_name": user_name})
     return cursor.fetchall()
 
 
